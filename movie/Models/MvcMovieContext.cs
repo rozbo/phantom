@@ -12,5 +12,6 @@ namespace movie.Models
         }
 
         public DbSet<movie.Models.Topic> Topic { get; set; }
+        public DbSet<movie.Models.User> User { get; set; }
     }
 }

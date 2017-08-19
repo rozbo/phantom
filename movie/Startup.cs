@@ -9,13 +9,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using movie.Models;
 
+
 namespace movie
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration,IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables();
+            this.Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -23,9 +28,15 @@ namespace movie
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MvcMovieContext>(options =>
+                                             options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
-			services.AddDbContext<MvcMovieContext>(options =>
-                                             options.UseSqlite("Data Source=phantom.db"));
+            services.AddMemoryCache();
+            services.AddAuthentication("MyCookieAuthenticationScheme")
+        .AddCookie(options => {
+            options.AccessDeniedPath = "/Account/Forbidden/";
+            options.LoginPath = "/Account/login/";
+        });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +50,7 @@ namespace movie
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseAuthentication();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
