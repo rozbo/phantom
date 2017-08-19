@@ -1,6 +1,7 @@
 # Autosave files
 *~
 # db
+phantom.db
 MvcMovie.db
 # build
 [Oo]bj/

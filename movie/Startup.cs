@@ -25,7 +25,7 @@ namespace movie
         {
             services.AddMvc();
 			services.AddDbContext<MvcMovieContext>(options =>
-                                             options.UseSqlite("Data Source=MvcMovie.db"));
+                                             options.UseSqlite("Data Source=phantom.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +49,7 @@ namespace movie
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             DBinitialize.EnsureCreated(app.ApplicationServices);
+            SeedData.Initialize(app.ApplicationServices);
         }
     }
 }

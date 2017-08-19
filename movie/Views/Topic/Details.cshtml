@@ -1,0 +1,66 @@
+@model movie.Models.Topic
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Topic</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PostDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PostDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReplyDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReplyDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReplyCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReplyCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ViewCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ViewCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NodeId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NodeId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
