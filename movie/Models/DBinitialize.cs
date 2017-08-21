@@ -12,7 +12,8 @@ namespace movie.Models
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var db = serviceScope.ServiceProvider.GetService<MvcMovieContext>();
-                db.Database.EnsureCreated();
+                //db.Database.EnsureCreated();
+                db.Database.Migrate();
             }
         }
     }

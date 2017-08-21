@@ -15,6 +15,8 @@ namespace movie.Controllers
     {
 		public IActionResult Index()
 		{
+            var s=HttpContext.User.Identity.Name;
+            ViewBag.info=s;
 			return View();
 		}
 

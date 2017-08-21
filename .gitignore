@@ -40,3 +40,7 @@ Thumbs.db
 
 # dotCover
 *.dotCover
+
+# bowerlib
+/wwwroot/lib
+movie/wwwroot/lib

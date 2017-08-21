@@ -13,12 +13,9 @@ namespace movie.Models
 			{
                 var context=serviceScope.ServiceProvider.GetService<MvcMovieContext>();
 				// Look for any movies
-				if (context.Topic.Any())
+				if (context.Topic.Count()==0)
 				{
-					return;   // DB has been seeded
-				}
-
-				context.Topic.AddRange(
+					context.Topic.AddRange(
 					 new Topic
 					 {
 						 Title = "When Harry Met Sally",
@@ -57,8 +54,17 @@ namespace movie.Models
 					   ReplyCount = 1,
 					   ReplyDate = DateTime.Parse("1989-1-11"),
 					   NodeId = 1
-				   }
-				);
+				   });
+				}
+				if (context.User.Count()==0)
+				{
+					context.User.Add(
+						new User{
+							Username="115115",
+							Password="110110"
+						}
+					);
+				}
 				context.SaveChanges();
 			}
         }

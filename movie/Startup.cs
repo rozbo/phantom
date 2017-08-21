@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using movie.Models;
+
 
 
 namespace movie
@@ -30,13 +32,17 @@ namespace movie
         {
             services.AddDbContext<MvcMovieContext>(options =>
                                              options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc();
+            // services.AddAuthentication("MyCookieAuthenticationScheme").AddCookie(options => {
+            //             options.AccessDeniedPath = "/Account/Forbidden/";
+            //             options.LoginPath = "/Account/login/";
+            //         });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie();
             services.AddMemoryCache();
-            services.AddAuthentication("MyCookieAuthenticationScheme")
-        .AddCookie(options => {
-            options.AccessDeniedPath = "/Account/Forbidden/";
-            options.LoginPath = "/Account/login/";
-        });
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +58,7 @@ namespace movie
             }
             app.UseAuthentication();
             app.UseStaticFiles();
-
+            app.UseStatusCodePages();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
