@@ -11,7 +11,7 @@ namespace movie.Models
         {
 			using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
 			{
-                var context=serviceScope.ServiceProvider.GetService<MvcMovieContext>();
+                var context=serviceScope.ServiceProvider.GetService<MyDbContext>();
 				// Look for any movies
 				if (context.Topic.Count()==0)
 				{

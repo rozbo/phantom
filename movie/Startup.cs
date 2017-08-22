@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using movie.Interfaces;
+using movie.Logics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using movie.Models;
-
 
 
 namespace movie
@@ -30,7 +31,7 @@ namespace movie
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MvcMovieContext>(options =>
+            services.AddDbContext<MyDbContext>(options =>
                                              options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             // services.AddAuthentication("MyCookieAuthenticationScheme").AddCookie(options => {
             //             options.AccessDeniedPath = "/Account/Forbidden/";
@@ -43,6 +44,7 @@ namespace movie
             }).AddCookie();
             services.AddMemoryCache();
             services.AddMvc();
+            services.AddScoped<IHello,Hello>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

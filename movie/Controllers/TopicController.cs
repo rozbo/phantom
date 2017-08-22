@@ -11,9 +11,9 @@ namespace phantom.Controllers
 {
     public class TopicController : Controller
     {
-        private readonly MvcMovieContext _context;
+        private readonly MyDbContext _context;
 
-        public TopicController(MvcMovieContext context)
+        public TopicController(MyDbContext context)
         {
             _context = context;
         }

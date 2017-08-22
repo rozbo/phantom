@@ -16,9 +16,9 @@ namespace movie.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly MvcMovieContext _context;
+        private readonly MyDbContext _context;
 
-        public AccountController(MvcMovieContext context)
+        public AccountController(MyDbContext context)
         {
             _context = context;
         }
@@ -27,7 +27,13 @@ namespace movie.Controllers
 			return "index";
 		}
 
-        public string welcome(){
+        public IActionResult info()
+        {
+            return View();
+        }
+
+        public string welcome()
+        {
             var a=HttpContext.User.Claims.Count();
             var b = HttpContext.User.Identity.Name;
             return $"{a}welcome,{b}";
@@ -56,7 +62,8 @@ namespace movie.Controllers
             if(user!=null &&
             user.Password.Equals(l.Password)){
                 var identity = new ClaimsIdentity(new[] {
-                                    new Claim(ClaimTypes.Name, "lol")
+                                    new Claim(ClaimTypes.Name, "lol"),
+                 new Claim(ClaimTypes.Role,"Manage")
                                 }, CookieAuthenticationDefaults.AuthenticationScheme);
                 var pp = new ClaimsPrincipal (identity);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,pp,new AuthenticationProperties

@@ -1,0 +1,56 @@
+@using System.Linq
+@using System.Security.Claims
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <li class="dropdown user user-menu">
+        <!-- Menu Toggle Button -->
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+            <span class="hidden-xs">@User.Identity.Name</span>
+        </a>
+        <ul class="dropdown-menu">
+            <!-- The user image in the menu -->
+            <li class="user-header">
+                <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                    @User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value
+                    <small>lv1</small>
+                </p>
+            </li>
+            <!-- Menu Body -->
+            <li class="user-body">
+                <div class="row">
+                    <div class="col-xs-4 text-center">
+                        <a href="#">Followers</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <a href="#">Sales</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <a href="#">Friends</a>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+                <div class="pull-left">
+                    <a asp-controller="User" asp-action="Profile" class="btn btn-default btn-flat">资料</a>
+                </div>
+                <div class="pull-right">
+                    <a asp-controller="Account" asp-action="logout" class="btn btn-default btn-flat">退出</a>
+                </div>
+            </li>
+        </ul>
+    </li>
+}
+else
+{
+    <li><a asp-controller="Account" asp-action="register">注册</a></li>
+    <li><a asp-controller="Account" asp-action="login">登陆</a></li>
+}
+
+

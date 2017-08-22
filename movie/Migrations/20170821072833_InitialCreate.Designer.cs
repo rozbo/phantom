@@ -10,7 +10,7 @@ using System;
 
 namespace phantom.Migrations
 {
-    [DbContext(typeof(MvcMovieContext))]
+    [DbContext(typeof(MyDbContext))]
     [Migration("20170821072833_InitialCreate")]
     partial class InitialCreate
     {
