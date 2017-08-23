@@ -13,15 +13,18 @@ namespace phantom.Controllers
     {
 
         private readonly MyDbContext _dbContext;
-        public UserController(MyDbContext dbContext)
+        private readonly User _user;
+        public UserController(MyDbContext dbContext,User user)
         {
             _dbContext = dbContext;
+            _user = user;
         }
 
-        public bool profile()
+        public string profile()
         {
-            IUserLogic userLogic=(IUserLogic)HttpContext.RequestServices.GetService(typeof(IUserLogic));
-            return userLogic.isLogin();
+//            IUserLogic userLogic=(IUserLogic)HttpContext.RequestServices.GetService(typeof(IUserLogic));
+//            return userLogic.isLogin();
+            return _user.Username;
         }
     }
 }

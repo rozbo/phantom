@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using phantom.Models;
 
 
@@ -37,6 +38,7 @@ namespace phantom
             //             options.AccessDeniedPath = "/Account/Forbidden/";
             //             options.LoginPath = "/Account/login/";
             //         });
+            //services.AddIdentity<User, IdentityRole>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
