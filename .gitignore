@@ -43,7 +43,7 @@ Thumbs.db
 
 # bowerlib
 /wwwroot/lib
-movie/wwwroot/lib
+*/wwwroot/lib
 
 # idea
 .idea
