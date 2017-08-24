@@ -11,9 +11,10 @@ using System;
 namespace phantom.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MvcMovieContextModelSnapshot : ModelSnapshot
+    [Migration("20170824050322_AddUserEmail")]
+    partial class AddUserEmail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,8 +51,6 @@ namespace phantom.Migrations
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
-
                     b.Property<string>("Password");
 
                     b.Property<string>("Username");
@@ -70,19 +69,11 @@ namespace phantom.Migrations
 
                     b.Property<string>("Bio");
 
-                    b.Property<string>("Education");
-
                     b.Property<DateTime>("LastDate");
-
-                    b.Property<string>("Location");
-
-                    b.Property<string>("Notes");
 
                     b.Property<DateTime>("RegDate");
 
                     b.Property<int>("Sex");
-
-                    b.Property<string>("Skills");
 
                     b.Property<Guid>("UserId");
 

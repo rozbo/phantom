@@ -10,6 +10,8 @@ using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using phantom.Models;
+using phantom.ViewModels;
+
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace phantom.Controllers
@@ -85,6 +87,58 @@ namespace phantom.Controllers
 
         public IActionResult register(){
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>  register(Register r){
+            try
+            {
+                if(!ModelState.IsValid){
+                    return View(r);
+                }
+
+                if (!r.Agree)
+                {
+                    ModelState.AddModelError("Agree", "你必须同意注册协议！");
+                    return View(r);
+                }
+                if (_context.User.Any(t => t.Email == r.Email))
+                {
+                    ModelState.AddModelError("Email", "该邮箱已经注册过了！");
+                    return View(r);
+                }
+                var user=await _context.User.AddAsync(new User
+                    {
+                        Username = r.Email.Split("@")[0],
+                        Password = r.Password,
+                        Email = r.Email,
+                        Role = "Normal"
+                    }
+                );
+                var info=await _context.UserInfo.AddAsync(new UserInfo
+                {
+                    LastDate = DateTime.Now,
+                    RegDate = DateTime.Now,
+                    Sex = 0,
+                    Age = 0,
+                    Nickname = user.Entity.Username,
+                    UserId = user.Entity.ID
+                });
+                await _context.SaveChangesAsync();
+                var identity = new ClaimsIdentity(new[] {
+                    new Claim(ClaimTypes.Name, user.Entity.Username),
+                    new Claim(ClaimTypes.Role,user.Entity.Role)
+                }, CookieAuthenticationDefaults.AuthenticationScheme);
+                var pp = new ClaimsPrincipal (identity);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,pp);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
     }
 }

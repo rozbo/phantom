@@ -58,10 +58,16 @@ namespace phantom.Models
 				}
 				if (context.User.Count()==0)
 				{
-					context.User.Add(
+					context.User.AddRange(
 						new User{
 							Username="115115",
-							Password="110110"
+							Password="110110",
+							Email = "75200306@qq.com"
+						},
+						new User{
+							Username="115116",
+							Password="110110",
+							Email = "1@qq.com"
 						}
 					);
 				}

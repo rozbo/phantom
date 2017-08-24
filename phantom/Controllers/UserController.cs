@@ -20,11 +20,10 @@ namespace phantom.Controllers
             _user = user;
         }
 
-        public string profile()
+        public IActionResult profile()
         {
-//            IUserLogic userLogic=(IUserLogic)HttpContext.RequestServices.GetService(typeof(IUserLogic));
-//            return userLogic.isLogin();
-            return _user.GetUserInfo().UserId.ToString();
+            var m = _user.GetUserInfo();
+            return View(m);
         }
     }
 }

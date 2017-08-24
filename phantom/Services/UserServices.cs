@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using phantom.Interfaces;
 using phantom.Models;
 
@@ -30,7 +31,8 @@ namespace phantom.Services
         {
             if (null==_userInfo)
             {
-                _userInfo= _dbContext.UserInfo.FirstOrDefault(t => t.User.Username == _userName);
+                _userInfo= _dbContext.UserInfo.Include(user=>user.User).
+                    Single(t => t.User.Username == _userName);
             }
             return _userInfo;
         }
