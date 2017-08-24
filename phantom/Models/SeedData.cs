@@ -13,7 +13,7 @@ namespace phantom.Models
 			{
                 var context=serviceScope.ServiceProvider.GetService<MyDbContext>();
 				// Look for any phantoms
-				if (context.Topic.Count()==0)
+				if (!context.Topic.Any())
 				{
 					context.Topic.AddRange(
 					 new Topic
@@ -56,19 +56,47 @@ namespace phantom.Models
 					   NodeId = 1
 				   });
 				}
-				if (context.User.Count()==0)
+				if (!context.User.Any())
 				{
-					context.User.AddRange(
-						new User{
-							Username="115115",
-							Password="110110",
-							Email = "75200306@qq.com"
-						},
-						new User{
-							Username="115116",
-							Password="110110",
-							Email = "1@qq.com"
-						}
+
+					var user1=context.User.Add(
+						new User
+					{
+						Username = "115115",
+						Password = "110110",
+						Email = "75200306@qq.com",
+						Role = "Normal"
+					}
+					);
+					var user2=context.User.Add(
+						new User
+					{
+						Username = "115116",
+						Password = "110110",
+						Email = "1@qq.com",
+						Role = "Normal"
+					}
+					);
+					var userInfo1 = new UserInfo
+					{
+						LastDate = DateTime.Now,
+						RegDate = DateTime.Now,
+						Sex = 0,
+						Age = 0,
+						Nickname = user1.Entity.Username,
+						UserId = user1.Entity.ID
+					};
+					var userInfo2 = new UserInfo
+					{
+						LastDate = DateTime.Now,
+						RegDate = DateTime.Now,
+						Sex = 0,
+						Age = 0,
+						Nickname = user2.Entity.Username,
+						UserId = user2.Entity.ID
+					};
+					context.UserInfo.AddRange(
+						userInfo1,userInfo2
 					);
 				}
 				context.SaveChanges();

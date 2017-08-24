@@ -4,8 +4,8 @@ namespace phantom.Models
 {
     public class UserInfo
     {
-        public Guid ID { get; set; }
-        public Guid UserId { get; set; }
+        public int ID { get; set; }
+        public int UserId { get; set; }
         public string Nickname { get; set; }
         public int Sex { get; set; }
         public int Age { get; set; }

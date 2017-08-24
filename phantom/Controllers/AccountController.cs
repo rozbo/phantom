@@ -64,8 +64,8 @@ namespace phantom.Controllers
             if(user!=null &&
             user.Password.Equals(l.Password)){
                 var identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, "lol"),
-                    new Claim(ClaimTypes.Role,"Manage")
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Role,user.Role)
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
                 var pp = new ClaimsPrincipal (identity);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,pp,new AuthenticationProperties

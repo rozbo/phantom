@@ -12,8 +12,8 @@ namespace phantom.Models
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var db = serviceScope.ServiceProvider.GetService<MyDbContext>();
-                //db.Database.EnsureCreated();
-                db.Database.Migrate();
+                db.Database.EnsureCreated();
+                //db.Database.Migrate();
             }
         }
     }

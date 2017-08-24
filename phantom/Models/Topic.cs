@@ -5,8 +5,8 @@ namespace phantom.Models
 {
     public class Topic
     {
-        public Guid ID { get; set; }
-        public Guid UserId { get; set; }
+        public int ID { get; set; }
+        public int UserId { get; set; }
         public string Title { get; set; }
         [Display(Name="发布日期",Description = "这个帖子发布的日期")]
         [DataType(DataType.DateTime)]
