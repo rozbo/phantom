@@ -1,6 +1,6 @@
 ﻿using phantom.Models;
 
-namespace phantom.Services
+namespace phantom.Interfaces
 {
     public interface IUserServices
     {

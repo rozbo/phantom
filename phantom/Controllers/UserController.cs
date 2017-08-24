@@ -13,8 +13,8 @@ namespace phantom.Controllers
     {
 
         private readonly MyDbContext _dbContext;
-        private readonly User _user;
-        public UserController(MyDbContext dbContext,User user)
+        private readonly IUserServices _user;
+        public UserController(MyDbContext dbContext,IUserServices user)
         {
             _dbContext = dbContext;
             _user = user;
@@ -24,7 +24,7 @@ namespace phantom.Controllers
         {
 //            IUserLogic userLogic=(IUserLogic)HttpContext.RequestServices.GetService(typeof(IUserLogic));
 //            return userLogic.isLogin();
-            return _user.Username;
+            return _user.GetUserInfo().UserId.ToString();
         }
     }
 }

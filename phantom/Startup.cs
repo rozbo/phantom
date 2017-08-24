@@ -10,8 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using phantom.Models;
+using phantom.Services;
 
 
 namespace phantom
@@ -38,7 +40,7 @@ namespace phantom
             //             options.AccessDeniedPath = "/Account/Forbidden/";
             //             options.LoginPath = "/Account/login/";
             //         });
-            //services.AddIdentity<User, IdentityRole>();
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -50,7 +52,9 @@ namespace phantom
             services.AddMemoryCache();
             services.AddMvc();
             services.AddScoped<IHello,Hello>();
-            services.AddScoped<IUserLogic,UserLogic>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUserServices,UserServices>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
